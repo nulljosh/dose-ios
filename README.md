@@ -22,3 +22,11 @@ Requires Xcode 16+, iOS 17+.
 ## License
 
 MIT 2026 Joshua Trommel
+
+## Roadmap
+
+- [ ] Sync with web app (dose)
+- [ ] HealthKit integration
+- [ ] Notification reminders
+- [ ] Widget for today's doses
+- [ ] Interaction checker
