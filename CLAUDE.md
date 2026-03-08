@@ -26,3 +26,9 @@ DoseApp.swift   App entry point, TabView with 4 tabs
 
 ## Status
 v1.0 -- local-only MVP. No backend, no OCR yet.
+
+## Quick Commands
+- `./scripts/simplify.sh`
+- `./scripts/monetize.sh . --write`
+- `./scripts/audit.sh .`
+- `./scripts/ship.sh .`
