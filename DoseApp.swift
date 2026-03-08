@@ -3,28 +3,29 @@ import SwiftUI
 @main
 struct DoseApp: App {
     @State private var dataStore = DataStore()
+    @State private var healthKitService = HealthKitService()
 
     var body: some Scene {
         WindowGroup {
             TabView {
                 DashboardView(dataStore: dataStore)
                     .tabItem {
-                        Label("Dashboard", systemImage: "house.fill")
+                        Label("Home", systemImage: "house.fill")
                     }
 
-                LogView(dataStore: dataStore)
+                LibraryView(dataStore: dataStore)
                     .tabItem {
-                        Label("Log", systemImage: "plus.circle.fill")
+                        Label("Library", systemImage: "book.fill")
                     }
 
-                HistoryView(dataStore: dataStore)
+                InsightsView(dataStore: dataStore)
                     .tabItem {
-                        Label("History", systemImage: "clock.fill")
+                        Label("Insights", systemImage: "chart.line.uptrend.xyaxis")
                     }
 
-                HealthView(dataStore: dataStore)
+                BodyView(dataStore: dataStore, healthKitService: healthKitService)
                     .tabItem {
-                        Label("Health", systemImage: "heart.fill")
+                        Label("Body", systemImage: "heart.fill")
                     }
             }
         }

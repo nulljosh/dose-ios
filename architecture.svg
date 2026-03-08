@@ -1,74 +1,78 @@
-<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, sans-serif">
-  <rect width="800" height="420" fill="#f5f5f7" rx="16"/>
-
-  <!-- Title -->
-  <text x="400" y="40" text-anchor="middle" font-size="18" font-weight="700" fill="#1d1d1f">Dose iOS -- Architecture</text>
-
-  <!-- Arrowhead marker -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; background: #fff;">
   <defs>
     <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L8,3 L0,6" fill="#10b981"/>
+      <path d="M0,0 L8,3 L0,6" fill="#86868b"/>
     </marker>
   </defs>
 
-  <!-- SwiftUI Views -->
-  <rect x="40" y="70" width="200" height="280" rx="12" fill="white" stroke="#d2d2d7" stroke-width="1.5"/>
-  <text x="140" y="100" text-anchor="middle" font-size="13" font-weight="600" fill="#1d1d1f">SwiftUI Views</text>
+  <text x="400" y="32" text-anchor="middle" style="font-size: 18px; font-weight: 600; fill: #1d1d1f;">Dose iOS Architecture</text>
 
-  <rect x="60" y="114" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="140" y="136" text-anchor="middle" font-size="12" fill="#10b981">DashboardView</text>
+  <!-- Views Layer -->
+  <rect x="40" y="60" width="720" height="100" rx="12" style="fill: #f5f5f7; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="60" y="82" style="font-size: 11px; font-weight: 600; fill: #86868b; letter-spacing: 0.5px;">VIEWS</text>
+  <rect x="60" y="92" width="90" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="105" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Dashboard</text>
+  <rect x="160" y="92" width="80" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="200" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Library</text>
+  <rect x="250" y="92" width="80" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="290" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">History</text>
+  <rect x="340" y="92" width="80" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="380" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Insights</text>
+  <rect x="430" y="92" width="70" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="465" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Body</text>
+  <rect x="510" y="92" width="100" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="560" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Interactions</text>
+  <rect x="620" y="92" width="60" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="650" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Log</text>
+  <rect x="690" y="92" width="56" height="52" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="718" y="122" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Detail</text>
 
-  <rect x="60" y="156" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="140" y="178" text-anchor="middle" font-size="12" fill="#10b981">LogView</text>
+  <!-- Arrow Views -> Services -->
+  <line x1="400" y1="160" x2="400" y2="200" style="stroke: #86868b; stroke-width: 1.5;" marker-end="url(#arr)"/>
 
-  <rect x="60" y="198" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="140" y="220" text-anchor="middle" font-size="12" fill="#10b981">HistoryView</text>
+  <!-- Services Layer -->
+  <rect x="40" y="210" width="720" height="90" rx="12" style="fill: #f5f5f7; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="60" y="232" style="font-size: 11px; font-weight: 600; fill: #86868b; letter-spacing: 0.5px;">SERVICES</text>
+  <rect x="60" y="242" width="140" height="44" rx="8" style="fill: #0071e3; stroke: none;"/>
+  <text x="130" y="268" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">DataStore</text>
+  <rect x="220" y="242" width="160" height="44" rx="8" style="fill: #0071e3; stroke: none;"/>
+  <text x="300" y="268" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">HealthKitService</text>
+  <rect x="400" y="242" width="170" height="44" rx="8" style="fill: #0071e3; stroke: none;"/>
+  <text x="485" y="268" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">InteractionEngine</text>
+  <rect x="590" y="242" width="150" height="44" rx="8" style="fill: #0071e3; stroke: none;"/>
+  <text x="665" y="268" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">CSVExporter</text>
 
-  <rect x="60" y="240" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="140" y="262" text-anchor="middle" font-size="12" fill="#10b981">HealthView</text>
+  <!-- Arrow Services -> Models -->
+  <line x1="250" y1="300" x2="250" y2="340" style="stroke: #86868b; stroke-width: 1.5;" marker-end="url(#arr)"/>
 
-  <rect x="60" y="282" width="160" height="34" rx="8" fill="#f5f5f7" stroke="#d2d2d7" stroke-width="1"/>
-  <text x="140" y="304" text-anchor="middle" font-size="12" fill="#6e6e73">ContentView / TabView</text>
+  <!-- Models Layer -->
+  <rect x="40" y="350" width="440" height="90" rx="12" style="fill: #f5f5f7; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="60" y="372" style="font-size: 11px; font-weight: 600; fill: #86868b; letter-spacing: 0.5px;">MODELS</text>
+  <rect x="60" y="382" width="95" height="44" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="107" y="408" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Substance</text>
+  <rect x="165" y="382" width="95" height="44" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="212" y="408" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">DoseEntry</text>
+  <rect x="270" y="382" width="100" height="44" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="320" y="408" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">HealthEntry</text>
+  <rect x="380" y="382" width="86" height="44" rx="8" style="fill: #fff; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="423" y="408" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">Biometric</text>
 
-  <!-- Arrow: Views -> DataStore -->
-  <line x1="240" y1="200" x2="298" y2="200" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Storage Layer -->
+  <rect x="500" y="350" width="260" height="90" rx="12" style="fill: #f5f5f7; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="520" y="372" style="font-size: 11px; font-weight: 600; fill: #86868b; letter-spacing: 0.5px;">STORAGE</text>
+  <rect x="520" y="382" width="100" height="44" rx="8" style="fill: #34c759; stroke: none;"/>
+  <text x="570" y="408" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">UserDefaults</text>
+  <rect x="640" y="382" width="100" height="44" rx="8" style="fill: #ff3b30; stroke: none;"/>
+  <text x="690" y="408" text-anchor="middle" style="font-size: 12px; fill: #fff; font-weight: 500;">HealthKit</text>
 
-  <!-- DataStore -->
-  <rect x="300" y="100" width="200" height="220" rx="12" fill="white" stroke="#d2d2d7" stroke-width="1.5"/>
-  <text x="400" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#1d1d1f">DataStore</text>
-  <text x="400" y="150" text-anchor="middle" font-size="11" fill="#6e6e73">@Observable</text>
+  <!-- Arrow DataStore -> UserDefaults -->
+  <path d="M130,286 L130,330 L570,330 L570,380" style="stroke: #86868b; stroke-width: 1.5; fill: none;" marker-end="url(#arr)"/>
 
-  <text x="400" y="178" text-anchor="middle" font-size="11" fill="#1d1d1f">substances: [Substance]</text>
-  <text x="400" y="198" text-anchor="middle" font-size="11" fill="#1d1d1f">doseEntries: [DoseEntry]</text>
-  <text x="400" y="218" text-anchor="middle" font-size="11" fill="#1d1d1f">healthEntries: [HealthEntry]</text>
+  <!-- Arrow HealthKitService -> HealthKit -->
+  <path d="M300,286 L300,318 L690,318 L690,380" style="stroke: #86868b; stroke-width: 1.5; fill: none;" marker-end="url(#arr)"/>
 
-  <line x1="320" y1="235" x2="480" y2="235" stroke="#e5e5ea" stroke-width="1"/>
-
-  <text x="400" y="258" text-anchor="middle" font-size="11" fill="#6e6e73">logDose()</text>
-  <text x="400" y="278" text-anchor="middle" font-size="11" fill="#6e6e73">addSubstance()</text>
-  <text x="400" y="298" text-anchor="middle" font-size="11" fill="#6e6e73">logHealth()</text>
-
-  <!-- Arrow: DataStore -> Models -->
-  <line x1="500" y1="200" x2="558" y2="200" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr)"/>
-
-  <!-- Models -->
-  <rect x="560" y="100" width="200" height="220" rx="12" fill="white" stroke="#d2d2d7" stroke-width="1.5"/>
-  <text x="660" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#1d1d1f">Models</text>
-  <text x="660" y="150" text-anchor="middle" font-size="11" fill="#6e6e73">Codable + Identifiable</text>
-
-  <rect x="580" y="166" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="660" y="188" text-anchor="middle" font-size="12" fill="#10b981">Substance</text>
-
-  <rect x="580" y="208" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="660" y="230" text-anchor="middle" font-size="12" fill="#10b981">DoseEntry</text>
-
-  <rect x="580" y="250" width="160" height="34" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
-  <text x="660" y="272" text-anchor="middle" font-size="12" fill="#10b981">HealthEntry</text>
-
-  <!-- Persistence note -->
-  <rect x="300" y="350" width="200" height="50" rx="10" fill="white" stroke="#d2d2d7" stroke-width="1.5"/>
-  <text x="400" y="372" text-anchor="middle" font-size="12" font-weight="600" fill="#1d1d1f">UserDefaults</text>
-  <text x="400" y="390" text-anchor="middle" font-size="10" fill="#6e6e73">JSON persistence</text>
-
-  <line x1="400" y1="320" x2="400" y2="348" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Data -->
+  <rect x="40" y="460" width="200" height="44" rx="8" style="fill: #f5f5f7; stroke: #d2d2d7; stroke-width: 1;"/>
+  <text x="140" y="486" text-anchor="middle" style="font-size: 11px; fill: #1d1d1f;">SubstanceDatabase (200+)</text>
+  <line x1="140" y1="440" x2="140" y2="458" style="stroke: #86868b; stroke-width: 1.5;" marker-end="url(#arr)"/>
 </svg>

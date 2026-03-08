@@ -42,6 +42,18 @@ struct HistoryView: View {
                 }
             }
             .navigationTitle("History")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    if !dataStore.doseEntries.isEmpty {
+                        ShareLink(
+                            item: CSVExporter.export(entries: dataStore.doseEntries, dataStore: dataStore),
+                            preview: SharePreview("Dose Export", image: Image(systemName: "doc.text"))
+                        ) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                    }
+                }
+            }
         }
     }
 }

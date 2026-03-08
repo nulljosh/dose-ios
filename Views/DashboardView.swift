@@ -2,64 +2,124 @@ import SwiftUI
 
 struct DashboardView: View {
     @Bindable var dataStore: DataStore
+    @State private var showAddDose = false
 
-    private var todaysEntries: [DoseEntry] {
-        let calendar = Calendar.current
-        return dataStore.doseEntries
-            .filter { calendar.isDateInToday($0.timestamp) }
-            .sorted { $0.timestamp > $1.timestamp }
+    private var greeting: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        if (5...11).contains(hour) {
+            return "Good morning"
+        }
+        if (12...16).contains(hour) {
+            return "Good afternoon"
+        }
+        return "Good evening"
     }
 
-    private var streakCount: Int {
-        let calendar = Calendar.current
-        let uniqueDays = Set(dataStore.doseEntries.map { calendar.startOfDay(for: $0.timestamp) })
-        var streak = 0
-        var day = calendar.startOfDay(for: Date())
+    private var activePills: [ActivePill] {
+        let grouped = Dictionary(grouping: dataStore.getActive()) { dataStore.substanceName(for: $0) }
 
-        while uniqueDays.contains(day) {
-            streak += 1
-            guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
-            day = previous
+        return grouped.compactMap { name, entries in
+            let first = entries.first
+            let builtIn = first.flatMap { SubstanceDatabase.find(id: $0.substanceId.uuidString.lowercased()) }
+            let color = builtIn?.category.categoryColor ?? Color.secondary
+            let latest = entries.map(\.timestamp).max() ?? .distantPast
+            return ActivePill(name: name, color: color, count: entries.count, latestTimestamp: latest)
         }
+        .sorted { $0.latestTimestamp > $1.latestTimestamp }
+    }
 
-        return streak
+    private var recentEntries: [DoseEntry] {
+        dataStore.doseEntries
+            .sorted { $0.timestamp > $1.timestamp }
+            .prefix(5)
+            .map { $0 }
     }
 
     var body: some View {
         NavigationStack {
-            List {
-                Section("Today") {
-                    if todaysEntries.isEmpty {
-                        Text("No doses logged yet.")
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(todaysEntries) { entry in
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(dataStore.substance(for: entry.substanceId)?.name ?? "Unknown")
-                                    .font(.headline)
-                                if !entry.notes.isEmpty {
-                                    Text(entry.notes)
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Text("Active stack")
+                                .font(.headline)
+
+                            Spacer()
+
+                            Button("Quick log") {
+                                showAddDose = true
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+
+                        if activePills.isEmpty {
+                            Text("No active substances in the last 24 hours.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        } else {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 8) {
+                                    ForEach(activePills) { pill in
+                                        Text(pill.count > 1 ? "\(pill.name) ×\(pill.count)" : pill.name)
+                                            .font(.subheadline.weight(.semibold))
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 8)
+                                            .background(pill.color)
+                                            .clipShape(Capsule())
+                                    }
                                 }
-                                Text(entry.timestamp, style: .time)
-                                    .font(.caption)
-                                    .foregroundStyle(.tertiary)
+                                .padding(.vertical, 2)
+                            }
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Recent entries")
+                            .font(.headline)
+
+                        if recentEntries.isEmpty {
+                            Text("No doses logged yet.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        } else {
+                            ForEach(recentEntries) { entry in
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(dataStore.substanceName(for: entry))
+                                        .font(.body.weight(.semibold))
+
+                                    if let dose = entry.dose {
+                                        let unit = (entry.unit ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                                        Text(unit.isEmpty ? "\(dose.formatted())" : "\(dose.formatted()) \(unit)")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.secondary)
+                                    }
+
+                                    Text(entry.timestamp, style: .relative)
+                                        .font(.caption)
+                                        .foregroundStyle(.tertiary)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.vertical, 4)
                             }
                         }
                     }
                 }
-
-                Section("Stats") {
-                    HStack {
-                        Text("Current streak")
-                        Spacer()
-                        Text("\(streakCount) day\(streakCount == 1 ? "" : "s")")
-                            .fontWeight(.semibold)
-                    }
-                }
+                .padding()
             }
-            .navigationTitle("Dashboard")
+            .navigationTitle(greeting)
+            .sheet(isPresented: $showAddDose) {
+                AddDoseSheet(dataStore: dataStore)
+            }
         }
     }
 }
+
+private struct ActivePill: Identifiable {
+    let id = UUID()
+    let name: String
+    let color: Color
+    let count: Int
+    let latestTimestamp: Date
+}
+

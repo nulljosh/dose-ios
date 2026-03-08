@@ -31,6 +31,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Dose reads your health data to track biometrics alongside your supplement and medication log.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

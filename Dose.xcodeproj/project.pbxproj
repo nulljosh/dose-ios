@@ -8,36 +8,74 @@
 
 /* Begin PBXBuildFile section */
 		0B7B033FDE64500B79B5A8B4 /* DoseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A2479EAB37F36326C1E5C7 /* DoseApp.swift */; };
+		128C0AF040FD364F09DE1CF6 /* icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = C0AC81F3FA6A15841EF6B0BC /* icon.svg */; };
+		19F672F7C0B340BF2064AD28 /* SubstanceDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389B60E83500D2B9DEF0674 /* SubstanceDatabase.swift */; };
+		24BD5569C9C142BB54DF6013 /* BiometricEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6688B81AFC3887F4BD6A4F /* BiometricEntry.swift */; };
 		24DB544CE32BC87AA2CF43E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C74417D906A5D19813FAA57 /* Assets.xcassets */; };
 		2ACACB1BF0F84AB4E9F72DE4 /* DoseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D27A1922EC987BAE7FD493 /* DoseEntry.swift */; };
 		4534EDCC8B0E7F6611AFF670 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5262460DE69FCBAD325BC /* DashboardView.swift */; };
 		48D28BDA648E3B65746EA9CE /* Substance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D99C602FC08048239F6A3 /* Substance.swift */; };
+		622BD4791B79939E792C30C4 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */; };
 		720A4D2E986E622CE2506454 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02E03D79AF6883278D1B0F /* LogView.swift */; };
+		773BE2B4E10A65AEBC91F9CC /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B64ABA79F5ADF607882964 /* HealthKitService.swift */; };
 		7BA324B459DD23FD61CA9D39 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBCA784AC9059994ADCCCFA /* HistoryView.swift */; };
+		7C8D1EEAFDBFE2AA650879E5 /* SubstanceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF86D74CC42D015A347E81D7 /* SubstanceDetailView.swift */; };
+		814482249B7F1367D1160E8E /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84161329875177CC262A4B27 /* BodyView.swift */; };
+		84D7414FF1D80D563916C80C /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D3C8536C750D3BF6A0E256 /* InsightsView.swift */; };
+		8BCBCE683DD90A3BECC1F6EB /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EA86FD5A989F175BD17549 /* HealthKit.framework */; };
+		97064605B276DC745EBC88D5 /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442065323162796C3DD78694 /* CSVExporter.swift */; };
 		A60A85B52A37C611CDC2FB87 /* HealthEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55072BDDA3266E12BC8EB118 /* HealthEntry.swift */; };
-		DEE10308C4B5233E77E44A44 /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130A12EF3A1D3635433F43A /* HealthView.swift */; };
+		B948721133B0C0F574ACC083 /* AddDoseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */; };
+		B9BE394A9D62CDDB30D267F2 /* InteractionCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */; };
+		D2BB2666C3EAD5647E1104F4 /* InteractionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A16608622E657C93A4B65 /* InteractionEngine.swift */; };
 		E3F8E3E2AFDC56E21949D5C0 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */; };
+		FCF827D3CD361D4B4E9D795F /* simplify.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7E30662CF18BB477729E21CB /* simplify.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionCheckerView.swift; sourceTree = "<group>"; };
 		13653369BEDC7C9D57B2AD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		14D3C8536C750D3BF6A0E256 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		2C74417D906A5D19813FAA57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4130A12EF3A1D3635433F43A /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
+		442065323162796C3DD78694 /* CSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
 		55072BDDA3266E12BC8EB118 /* HealthEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthEntry.swift; sourceTree = "<group>"; };
+		60B64ABA79F5ADF607882964 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		62EA86FD5A989F175BD17549 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6CBCA784AC9059994ADCCCFA /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		6E6688B81AFC3887F4BD6A4F /* BiometricEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricEntry.swift; sourceTree = "<group>"; };
+		7E30662CF18BB477729E21CB /* simplify.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = simplify.sh; sourceTree = "<group>"; };
+		84161329875177CC262A4B27 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoseSheet.swift; sourceTree = "<group>"; };
 		9E02E03D79AF6883278D1B0F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		A3D27A1922EC987BAE7FD493 /* DoseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseEntry.swift; sourceTree = "<group>"; };
 		A6A2479EAB37F36326C1E5C7 /* DoseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseApp.swift; sourceTree = "<group>"; };
+		B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		C0AC81F3FA6A15841EF6B0BC /* icon.svg */ = {isa = PBXFileReference; path = icon.svg; sourceTree = "<group>"; };
 		C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C3EBB199DE6DF1554DCC6A41 /* Dose.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Dose.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D07A16608622E657C93A4B65 /* InteractionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionEngine.swift; sourceTree = "<group>"; };
+		D389B60E83500D2B9DEF0674 /* SubstanceDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceDatabase.swift; sourceTree = "<group>"; };
 		ED7D99C602FC08048239F6A3 /* Substance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Substance.swift; sourceTree = "<group>"; };
+		EF86D74CC42D015A347E81D7 /* SubstanceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceDetailView.swift; sourceTree = "<group>"; };
 		EFC5262460DE69FCBAD325BC /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		400165885FF0238C683014C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BCBCE683DD90A3BECC1F6EB /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2F33E89E3A7CF0A0294DD508 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6E6688B81AFC3887F4BD6A4F /* BiometricEntry.swift */,
 				A3D27A1922EC987BAE7FD493 /* DoseEntry.swift */,
 				55072BDDA3266E12BC8EB118 /* HealthEntry.swift */,
 				ED7D99C602FC08048239F6A3 /* Substance.swift */,
@@ -45,21 +83,45 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		331F1F0F1A8DC98895CA0701 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62EA86FD5A989F175BD17549 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		514EFD7092921EB989115B27 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				442065323162796C3DD78694 /* CSVExporter.swift */,
 				C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */,
+				60B64ABA79F5ADF607882964 /* HealthKitService.swift */,
+				D07A16608622E657C93A4B65 /* InteractionEngine.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		8AE90F1E726A91600EA72A7C /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				7E30662CF18BB477729E21CB /* simplify.sh */,
+			);
+			path = scripts;
 			sourceTree = "<group>";
 		};
 		AC7591A219533446611E33E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */,
+				84161329875177CC262A4B27 /* BodyView.swift */,
 				EFC5262460DE69FCBAD325BC /* DashboardView.swift */,
-				4130A12EF3A1D3635433F43A /* HealthView.swift */,
 				6CBCA784AC9059994ADCCCFA /* HistoryView.swift */,
+				14D3C8536C750D3BF6A0E256 /* InsightsView.swift */,
+				0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */,
+				B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */,
 				9E02E03D79AF6883278D1B0F /* LogView.swift */,
+				EF86D74CC42D015A347E81D7 /* SubstanceDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -67,10 +129,13 @@
 		BB4EC32CE0F54FF0145520F2 = {
 			isa = PBXGroup;
 			children = (
+				DEB4D54ECFC761E6E7CF4ED5 /* Data */,
 				CCEF289D266FD44950E579E6 /* dose-ios */,
 				2F33E89E3A7CF0A0294DD508 /* Models */,
+				8AE90F1E726A91600EA72A7C /* scripts */,
 				514EFD7092921EB989115B27 /* Services */,
 				AC7591A219533446611E33E4 /* Views */,
+				331F1F0F1A8DC98895CA0701 /* Frameworks */,
 				F5FEA589315AFB7745BB1679 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,13 +145,24 @@
 			children = (
 				2C74417D906A5D19813FAA57 /* Assets.xcassets */,
 				A6A2479EAB37F36326C1E5C7 /* DoseApp.swift */,
+				C0AC81F3FA6A15841EF6B0BC /* icon.svg */,
 				13653369BEDC7C9D57B2AD23 /* Info.plist */,
+				DEB4D54ECFC761E6E7CF4ED5 /* Data */,
 				2F33E89E3A7CF0A0294DD508 /* Models */,
+				8AE90F1E726A91600EA72A7C /* scripts */,
 				514EFD7092921EB989115B27 /* Services */,
 				AC7591A219533446611E33E4 /* Views */,
 			);
 			name = "dose-ios";
 			path = .;
+			sourceTree = "<group>";
+		};
+		DEB4D54ECFC761E6E7CF4ED5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D389B60E83500D2B9DEF0674 /* SubstanceDatabase.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		F5FEA589315AFB7745BB1679 /* Products */ = {
@@ -106,6 +182,7 @@
 			buildPhases = (
 				4A944B47B78DE2D9EEC9C454 /* Sources */,
 				89B7D9972694678A087E9CC3 /* Resources */,
+				400165885FF0238C683014C3 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +231,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24DB544CE32BC87AA2CF43E0 /* Assets.xcassets in Resources */,
+				128C0AF040FD364F09DE1CF6 /* icon.svg in Resources */,
+				FCF827D3CD361D4B4E9D795F /* simplify.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,15 +243,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B948721133B0C0F574ACC083 /* AddDoseSheet.swift in Sources */,
+				24BD5569C9C142BB54DF6013 /* BiometricEntry.swift in Sources */,
+				814482249B7F1367D1160E8E /* BodyView.swift in Sources */,
+				97064605B276DC745EBC88D5 /* CSVExporter.swift in Sources */,
 				4534EDCC8B0E7F6611AFF670 /* DashboardView.swift in Sources */,
 				E3F8E3E2AFDC56E21949D5C0 /* DataStore.swift in Sources */,
 				0B7B033FDE64500B79B5A8B4 /* DoseApp.swift in Sources */,
 				2ACACB1BF0F84AB4E9F72DE4 /* DoseEntry.swift in Sources */,
 				A60A85B52A37C611CDC2FB87 /* HealthEntry.swift in Sources */,
-				DEE10308C4B5233E77E44A44 /* HealthView.swift in Sources */,
+				773BE2B4E10A65AEBC91F9CC /* HealthKitService.swift in Sources */,
 				7BA324B459DD23FD61CA9D39 /* HistoryView.swift in Sources */,
+				84D7414FF1D80D563916C80C /* InsightsView.swift in Sources */,
+				B9BE394A9D62CDDB30D267F2 /* InteractionCheckerView.swift in Sources */,
+				D2BB2666C3EAD5647E1104F4 /* InteractionEngine.swift in Sources */,
+				622BD4791B79939E792C30C4 /* LibraryView.swift in Sources */,
 				720A4D2E986E622CE2506454 /* LogView.swift in Sources */,
 				48D28BDA648E3B65746EA9CE /* Substance.swift in Sources */,
+				19F672F7C0B340BF2064AD28 /* SubstanceDatabase.swift in Sources */,
+				7C8D1EEAFDBFE2AA650879E5 /* SubstanceDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +315,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -241,6 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Dose.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -257,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Dose.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -322,7 +413,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

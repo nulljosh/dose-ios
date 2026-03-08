@@ -15,10 +15,15 @@ final class DataStore {
         didSet { saveHealthEntries() }
     }
 
+    var biometricEntries: [BiometricEntry] = [] {
+        didSet { saveBiometricEntries() }
+    }
+
     private let defaults = UserDefaults.standard
     private let substancesKey = "dose.substances"
     private let doseEntriesKey = "dose.doseEntries"
     private let healthEntriesKey = "dose.healthEntries"
+    private let biometricEntriesKey = "dose.biometricEntries"
 
     init() {
         loadAll()
@@ -50,6 +55,33 @@ final class DataStore {
         healthEntries.removeAll { $0.id == entry.id }
     }
 
+    func addBiometricEntry(_ entry: BiometricEntry) {
+        biometricEntries.append(entry)
+    }
+
+    func deleteBiometricEntry(_ entry: BiometricEntry) {
+        biometricEntries.removeAll { $0.id == entry.id }
+    }
+
+    func getActive() -> [DoseEntry] {
+        let now = Date()
+        let cutoff = now.addingTimeInterval(-24 * 60 * 60)
+        return doseEntries.filter { $0.timestamp >= cutoff && $0.timestamp <= now }
+    }
+
+    func substanceName(for entry: DoseEntry) -> String {
+        if let bid = entry.builtInSubstanceId, let builtIn = SubstanceDatabase.find(id: bid) {
+            return builtIn.name
+        }
+        if let substance = substances.first(where: { $0.id == entry.substanceId }) {
+            return substance.name
+        }
+        if let builtIn = SubstanceDatabase.find(id: entry.substanceId.uuidString.lowercased()) {
+            return builtIn.name
+        }
+        return "Unknown"
+    }
+
     func substance(for id: UUID) -> Substance? {
         substances.first { $0.id == id }
     }
@@ -58,6 +90,7 @@ final class DataStore {
         substances = load([Substance].self, forKey: substancesKey) ?? []
         doseEntries = load([DoseEntry].self, forKey: doseEntriesKey) ?? []
         healthEntries = load([HealthEntry].self, forKey: healthEntriesKey) ?? []
+        biometricEntries = load([BiometricEntry].self, forKey: biometricEntriesKey) ?? []
     }
 
     private func seedIfNeeded() {
@@ -79,6 +112,10 @@ final class DataStore {
 
     private func saveHealthEntries() {
         save(healthEntries, forKey: healthEntriesKey)
+    }
+
+    private func saveBiometricEntries() {
+        save(biometricEntries, forKey: biometricEntriesKey)
     }
 
     private func save<T: Codable>(_ value: T, forKey key: String) {
