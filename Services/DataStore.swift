@@ -3,12 +3,17 @@ import Observation
 
 @Observable
 final class DataStore {
+    static let appGroupId = "group.com.heyitsmejosh.dose"
+
     var substances: [Substance] = [] {
         didSet { saveSubstances() }
     }
 
     var doseEntries: [DoseEntry] = [] {
-        didSet { saveDoseEntries() }
+        didSet {
+            saveDoseEntries()
+            syncWidgetData()
+        }
     }
 
     var healthEntries: [HealthEntry] = [] {
@@ -19,7 +24,10 @@ final class DataStore {
         didSet { saveBiometricEntries() }
     }
 
+    var lastError: String?
+
     private let defaults = UserDefaults.standard
+    private let sharedDefaults = UserDefaults(suiteName: appGroupId)
     private let substancesKey = "dose.substances"
     private let doseEntriesKey = "dose.doseEntries"
     private let healthEntriesKey = "dose.healthEntries"
@@ -86,6 +94,35 @@ final class DataStore {
         substances.first { $0.id == id }
     }
 
+    func exportData() -> Data? {
+        let export = ExportBundle(
+            substances: substances,
+            doseEntries: doseEntries,
+            healthEntries: healthEntries,
+            biometricEntries: biometricEntries
+        )
+        do {
+            return try JSONEncoder().encode(export)
+        } catch {
+            lastError = "Export failed: \(error.localizedDescription)"
+            return nil
+        }
+    }
+
+    func importData(_ data: Data) -> Bool {
+        do {
+            let bundle = try JSONDecoder().decode(ExportBundle.self, from: data)
+            substances = bundle.substances
+            doseEntries = bundle.doseEntries
+            healthEntries = bundle.healthEntries
+            biometricEntries = bundle.biometricEntries
+            return true
+        } catch {
+            lastError = "Import failed: \(error.localizedDescription)"
+            return false
+        }
+    }
+
     private func loadAll() {
         substances = load([Substance].self, forKey: substancesKey) ?? []
         doseEntries = load([DoseEntry].self, forKey: doseEntriesKey) ?? []
@@ -119,12 +156,50 @@ final class DataStore {
     }
 
     private func save<T: Codable>(_ value: T, forKey key: String) {
-        guard let data = try? JSONEncoder().encode(value) else { return }
-        defaults.set(data, forKey: key)
+        do {
+            let data = try JSONEncoder().encode(value)
+            defaults.set(data, forKey: key)
+        } catch {
+            lastError = "Save failed for \(key): \(error.localizedDescription)"
+        }
     }
 
     private func load<T: Codable>(_ type: T.Type, forKey key: String) -> T? {
         guard let data = defaults.data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(type, from: data)
+        do {
+            return try JSONDecoder().decode(type, from: data)
+        } catch {
+            lastError = "Load failed for \(key): \(error.localizedDescription)"
+            return nil
+        }
     }
+
+    private func syncWidgetData() {
+        let active = getActive()
+        sharedDefaults?.set(active.count, forKey: "widget.doseCount")
+
+        if let latest = active.sorted(by: { $0.timestamp > $1.timestamp }).first {
+            sharedDefaults?.set(substanceName(for: latest), forKey: "widget.lastDoseName")
+        } else {
+            sharedDefaults?.set("No recent dose", forKey: "widget.lastDoseName")
+        }
+
+        let grouped = Dictionary(grouping: active) { substanceName(for: $0) }
+        let pills = grouped.map { WidgetPill(name: $0.key, count: $0.value.count) }
+        if let data = try? JSONEncoder().encode(pills) {
+            sharedDefaults?.set(data, forKey: "widget.activePills")
+        }
+    }
+}
+
+private struct WidgetPill: Codable {
+    let name: String
+    let count: Int
+}
+
+private struct ExportBundle: Codable {
+    let substances: [Substance]
+    let doseEntries: [DoseEntry]
+    let healthEntries: [HealthEntry]
+    let biometricEntries: [BiometricEntry]
 }

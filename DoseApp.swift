@@ -4,11 +4,12 @@ import SwiftUI
 struct DoseApp: App {
     @State private var dataStore = DataStore()
     @State private var healthKitService = HealthKitService()
+    @State private var notificationService = NotificationService()
 
     var body: some Scene {
         WindowGroup {
             TabView {
-                DashboardView(dataStore: dataStore)
+                DashboardView(dataStore: dataStore, notificationService: notificationService)
                     .tabItem {
                         Label("Home", systemImage: "house.fill")
                     }

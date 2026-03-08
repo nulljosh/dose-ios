@@ -1,7 +1,17 @@
 import Foundation
 
+enum CSVExportError: LocalizedError {
+    case writeFailure(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .writeFailure(let msg): return msg
+        }
+    }
+}
+
 struct CSVExporter {
-    static func export(entries: [DoseEntry], dataStore: DataStore) -> URL {
+    static func export(entries: [DoseEntry], dataStore: DataStore) -> Result<URL, Error> {
         let header = "date,time,substance,dose,unit,route,rating,notes"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -25,8 +35,12 @@ struct CSVExporter {
 
         let csv = lines.joined(separator: "\n")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("dose-export.csv")
-        try? csv.write(to: url, atomically: true, encoding: .utf8)
-        return url
+        do {
+            try csv.write(to: url, atomically: true, encoding: .utf8)
+            return .success(url)
+        } catch {
+            return .failure(CSVExportError.writeFailure(error.localizedDescription))
+        }
     }
 
     private static func csvEscape(_ value: String) -> String {

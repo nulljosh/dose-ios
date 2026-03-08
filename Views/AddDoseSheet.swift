@@ -9,6 +9,7 @@ struct AddDoseSheet: View {
     @State private var selectedRoute = ""
     @State private var rating = 0
     @State private var notes = ""
+    @State private var timestamp = Date()
 
     private var filteredSubstances: [BuiltInSubstance] {
         if searchText.isEmpty { return Array(SubstanceDatabase.allSubstances.prefix(20)) }
@@ -115,6 +116,10 @@ struct AddDoseSheet: View {
                     }
                 }
 
+                Section("Time") {
+                    DatePicker("When", selection: $timestamp, in: ...Date())
+                }
+
                 Section("Notes") {
                     TextField("Notes", text: $notes, axis: .vertical)
                         .lineLimit(3, reservesSpace: true)
@@ -150,6 +155,7 @@ struct AddDoseSheet: View {
     private func save() {
         let entry = DoseEntry(
             builtInSubstanceId: selectedSubstance?.id,
+            timestamp: timestamp,
             notes: notes,
             dose: Double(doseAmount),
             unit: selectedSubstance?.unit,

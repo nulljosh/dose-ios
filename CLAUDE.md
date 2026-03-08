@@ -1,36 +1,32 @@
-# dose-ios -- Claude Notes
+# dose-ios
 
-## Overview
-iOS health tracker. Drug/vitamin logging (200+ substances), interaction checking, HealthKit biometrics, CSV export, daily check-ins. SwiftUI + @Observable. Local UserDefaults persistence (JSON-encoded). No backend.
+iOS health tracker. 200+ substances, interaction checking, HealthKit, CSV export, daily check-ins. SwiftUI + @Observable. UserDefaults persistence. No backend.
 
 ## Dev
+
 ```bash
-cd ~/Documents/Code/dose-ios
-xcodegen generate
-open Dose.xcodeproj
+xcodegen generate && open Dose.xcodeproj
 ```
 
-## Architecture
-```
-Views/          SwiftUI views (Dashboard, Library, History, Insights, Body, Log, AddDose, InteractionChecker)
-Models/         Codable structs (Substance, DoseEntry, HealthEntry, BiometricEntry)
-Services/       DataStore (@Observable, UserDefaults), HealthKitService, InteractionEngine, CSVExporter
-Data/           SubstanceDatabase (200+ built-in substances)
-DoseApp.swift   App entry point, TabView with 4 tabs
-```
+## Structure
 
-## Key Services
-- **DataStore** -- @Observable, UserDefaults persistence for all app data
-- **HealthKitService** -- @Observable, read-only HealthKit (HR, HRV, SpO2, sleep, steps, energy, distance, weight, BP)
-- **InteractionEngine** -- Drug interaction analysis (contraindications, synergies, timing)
-- **CSVExporter** -- Export dose history to CSV
+```
+DoseApp.swift       TabView (Home, Library, Insights, Body)
+Views/              Dashboard, Library, History, Insights, Body, Log, AddDose, InteractionChecker, Reminders
+Models/             Substance, DoseEntry, HealthEntry, BiometricEntry (all Codable)
+Services/           DataStore, HealthKitService, InteractionEngine, CSVExporter, NotificationService
+Data/               SubstanceDatabase (200+ substances)
+Tests/              Unit tests (InteractionEngine, DataStore, CSVExporter, SubstanceDatabase, HealthKitService)
+DoseWidget/         WidgetKit extension (small + medium, App Group shared data)
+```
 
 ## Conventions
-- iOS 17+, SwiftUI only, no UIKit
-- @Observable (not ObservableObject)
-- @Bindable for view bindings
-- xcodegen for project generation (project.yml)
+
+- iOS 17+, SwiftUI only, @Observable, @Bindable
+- xcodegen (project.yml), no checked-in .xcodeproj
 - HealthKit entitlements via Dose.entitlements
+- App Group: group.com.heyitsmejosh.dose (widget data sync)
 
 ## Status
-v2.0 -- HealthKit integration, interaction checker, CSV export, rich dose logging. Local-only, no backend.
+
+v2.1.0 -- Notifications, widget, unit tests, error handling, swipe-to-delete, search, timestamp picker. Local-only.

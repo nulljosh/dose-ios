@@ -5,7 +5,7 @@ options:
     iOS: '17.0'
 settings:
   SWIFT_VERSION: '6.0'
-  MARKETING_VERSION: '2.0.0'
+  MARKETING_VERSION: '2.1.0'
   CURRENT_PROJECT_VERSION: '1'
 targets:
   Dose:
@@ -22,13 +22,46 @@ targets:
           - CLAUDE.md
           - architecture.svg
           - '*.entitlements'
+          - Tests
+          - DoseWidget
+          - scripts
     dependencies:
       - sdk: HealthKit.framework
+      - target: DoseWidgetExtension
     entitlements:
       path: Dose.entitlements
       properties:
         com.apple.developer.healthkit: true
+        com.apple.security.application-groups:
+          - group.com.heyitsmejosh.dose
     settings:
       INFOPLIST_FILE: Info.plist
       PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.dose
       CODE_SIGN_ENTITLEMENTS: Dose.entitlements
+
+  DoseTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: Dose
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.dose.tests
+
+  DoseWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: DoseWidget
+    entitlements:
+      path: DoseWidget/DoseWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.heyitsmejosh.dose
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.dose.widget
+      INFOPLIST_FILE: DoseWidget/Info.plist
+    dependencies:
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework

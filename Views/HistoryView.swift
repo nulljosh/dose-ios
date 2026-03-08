@@ -2,10 +2,22 @@ import SwiftUI
 
 struct HistoryView: View {
     @Bindable var dataStore: DataStore
+    @State private var searchText = ""
+
+    private var filteredEntries: [DoseEntry] {
+        if searchText.isEmpty {
+            return dataStore.doseEntries
+        }
+        return dataStore.doseEntries.filter { entry in
+            let name = dataStore.substanceName(for: entry)
+            return name.localizedCaseInsensitiveContains(searchText) ||
+                   entry.notes.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     private var groupedEntries: [(date: Date, entries: [DoseEntry])] {
         let calendar = Calendar.current
-        let groups = Dictionary(grouping: dataStore.doseEntries) { entry in
+        let groups = Dictionary(grouping: filteredEntries) { entry in
             calendar.startOfDay(for: entry.timestamp)
         }
 
@@ -18,14 +30,14 @@ struct HistoryView: View {
         NavigationStack {
             List {
                 if groupedEntries.isEmpty {
-                    Text("No history yet.")
+                    Text(searchText.isEmpty ? "No history yet." : "No results.")
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(groupedEntries, id: \.date) { group in
                         Section(group.date.formatted(date: .abbreviated, time: .omitted)) {
                             ForEach(group.entries) { entry in
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text(dataStore.substance(for: entry.substanceId)?.name ?? "Unknown")
+                                    Text(dataStore.substanceName(for: entry))
                                         .font(.headline)
                                     if !entry.notes.isEmpty {
                                         Text(entry.notes)
@@ -37,16 +49,23 @@ struct HistoryView: View {
                                         .foregroundStyle(.tertiary)
                                 }
                             }
+                            .onDelete { offsets in
+                                let toDelete = offsets.map { group.entries[$0] }
+                                for entry in toDelete {
+                                    dataStore.deleteDoseEntry(entry)
+                                }
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("History")
+            .searchable(text: $searchText, prompt: "Search doses...")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !dataStore.doseEntries.isEmpty {
                         ShareLink(
-                            item: CSVExporter.export(entries: dataStore.doseEntries, dataStore: dataStore),
+                            item: csvExportURL,
                             preview: SharePreview("Dose Export", image: Image(systemName: "doc.text"))
                         ) {
                             Image(systemName: "square.and.arrow.up")
@@ -54,6 +73,15 @@ struct HistoryView: View {
                     }
                 }
             }
+        }
+    }
+
+    private var csvExportURL: URL {
+        switch CSVExporter.export(entries: dataStore.doseEntries, dataStore: dataStore) {
+        case .success(let url):
+            return url
+        case .failure:
+            return FileManager.default.temporaryDirectory.appendingPathComponent("dose-export.csv")
         }
     }
 }

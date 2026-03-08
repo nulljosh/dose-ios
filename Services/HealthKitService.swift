@@ -18,6 +18,7 @@ final class HealthKitService {
     var systolicBP: Int?
     var diastolicBP: Int?
     var isAuthorized = false
+    var lastError: String?
 
     static var isAvailable: Bool { HKHealthStore.isHealthDataAvailable() }
 
@@ -45,6 +46,7 @@ final class HealthKitService {
             await fetchAll()
         } catch {
             isAuthorized = false
+            lastError = "HealthKit authorization failed: \(error.localizedDescription)"
         }
     }
 

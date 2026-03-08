@@ -2,7 +2,9 @@ import SwiftUI
 
 struct DashboardView: View {
     @Bindable var dataStore: DataStore
+    @Bindable var notificationService: NotificationService
     @State private var showAddDose = false
+    @State private var showReminders = false
 
     private var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
@@ -60,7 +62,7 @@ struct DashboardView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
                                     ForEach(activePills) { pill in
-                                        Text(pill.count > 1 ? "\(pill.name) ×\(pill.count)" : pill.name)
+                                        Text(pill.count > 1 ? "\(pill.name) x\(pill.count)" : pill.name)
                                             .font(.subheadline.weight(.semibold))
                                             .foregroundStyle(.white)
                                             .padding(.horizontal, 12)
@@ -108,8 +110,20 @@ struct DashboardView: View {
                 .padding()
             }
             .navigationTitle(greeting)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showReminders = true
+                    } label: {
+                        Image(systemName: "bell")
+                    }
+                }
+            }
             .sheet(isPresented: $showAddDose) {
                 AddDoseSheet(dataStore: dataStore)
+            }
+            .sheet(isPresented: $showReminders) {
+                RemindersView(notificationService: notificationService)
             }
         }
     }
@@ -122,4 +136,3 @@ private struct ActivePill: Identifiable {
     let count: Int
     let latestTimestamp: Date
 }
-
