@@ -6,8 +6,6 @@ struct DoseApp: App {
     @State private var healthKitService = HealthKitService()
     @State private var notificationService = NotificationService()
     @State private var showSplash = true
-    @AppStorage("healthKitRequested") private var healthKitRequested = false
-
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -33,9 +31,8 @@ struct DoseApp: App {
                         }
                 }
                 .task {
-                    if !healthKitRequested && HealthKitService.isAvailable {
+                    if HealthKitService.isAvailable {
                         await healthKitService.requestAuthorization()
-                        healthKitRequested = true
                     }
                 }
 

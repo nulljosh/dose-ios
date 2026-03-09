@@ -54,71 +54,15 @@ private struct BiometricsTab: View {
 
     var body: some View {
         Form {
-            if healthKitService.isAuthorized {
-                Section("Apple Health") {
-                    healthDataGrid
-                }
+            Section("Apple Health") {
+                healthDataGrid
+            }
 
-                Section("Notes") {
-                    TextField("Daily notes...", text: $notes, axis: .vertical)
-                        .lineLimit(4, reservesSpace: true)
+            Section("Notes") {
+                TextField("Daily notes...", text: $notes, axis: .vertical)
+                    .lineLimit(4, reservesSpace: true)
 
-                    if healthKitService.systolicBP == nil {
-                        HStack {
-                            Text("Blood Pressure")
-                            Spacer()
-                            TextField("sys", text: $bpSystolic)
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.trailing)
-                                .frame(width: 50)
-                            Text("/")
-                            TextField("dia", text: $bpDiastolic)
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.trailing)
-                                .frame(width: 50)
-                        }
-                    }
-
-                    Button("Save Note") {
-                        var validSys: Int?
-                        var validDia: Int?
-                        if !bpSystolic.isEmpty || !bpDiastolic.isEmpty {
-                            guard let sys = Int(bpSystolic), sys > 0, sys < 300,
-                                  let dia = Int(bpDiastolic), dia > 0, dia < 300 else { return }
-                            validSys = sys
-                            validDia = dia
-                        }
-                        let entry = BiometricEntry(
-                            bpSystolic: validSys,
-                            bpDiastolic: validDia,
-                            notes: String(notes.trimmingCharacters(in: .whitespacesAndNewlines).prefix(500))
-                        )
-                        dataStore.addBiometricEntry(entry)
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        notes = ""
-                        bpSystolic = ""
-                        bpDiastolic = ""
-                    }
-                }
-            } else {
-                if HealthKitService.isAvailable {
-                    Section("Apple Health") {
-                        Button("Connect Apple Health") {
-                            Task { await healthKitService.requestAuthorization() }
-                        }
-                    }
-                }
-
-                Section("Log Biometrics") {
-                    HStack {
-                        Text("Weight (lbs)")
-                        Spacer()
-                        TextField("--", text: $weight)
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.trailing)
-                            .frame(width: 80)
-                    }
-
+                if healthKitService.systolicBP == nil {
                     HStack {
                         Text("Blood Pressure")
                         Spacer()
@@ -132,57 +76,27 @@ private struct BiometricsTab: View {
                             .multilineTextAlignment(.trailing)
                             .frame(width: 50)
                     }
-
-                    HStack {
-                        Text("Heart Rate (bpm)")
-                        Spacer()
-                        TextField("--", text: $heartRate)
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.trailing)
-                            .frame(width: 80)
-                    }
-
-                    VStack(alignment: .leading) {
-                        Text("Sleep: \(sleepHours, specifier: "%.1f") hrs")
-                        Slider(value: $sleepHours, in: 0...12, step: 0.5)
-                    }
-
-                    HStack {
-                        Text("Steps")
-                        Spacer()
-                        TextField("--", text: $steps)
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.trailing)
-                            .frame(width: 80)
-                    }
-
-                    TextField("Notes", text: $notes, axis: .vertical)
-                        .lineLimit(3, reservesSpace: true)
                 }
 
-                Section {
-                    Button("Save Biometrics") {
-                        var validSys: Int?
-                        var validDia: Int?
-                        if !bpSystolic.isEmpty || !bpDiastolic.isEmpty {
-                            guard let sys = Int(bpSystolic), sys > 0, sys < 300,
-                                  let dia = Int(bpDiastolic), dia > 0, dia < 300 else { return }
-                            validSys = sys
-                            validDia = dia
-                        }
-                        let entry = BiometricEntry(
-                            weight: Double(weight),
-                            bpSystolic: validSys,
-                            bpDiastolic: validDia,
-                            heartRate: Int(heartRate),
-                            sleepHours: sleepHours,
-                            steps: Int(steps),
-                            notes: String(notes.trimmingCharacters(in: .whitespacesAndNewlines).prefix(500))
-                        )
-                        dataStore.addBiometricEntry(entry)
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        clearForm()
+                Button("Save Note") {
+                    var validSys: Int?
+                    var validDia: Int?
+                    if !bpSystolic.isEmpty || !bpDiastolic.isEmpty {
+                        guard let sys = Int(bpSystolic), sys > 0, sys < 300,
+                              let dia = Int(bpDiastolic), dia > 0, dia < 300 else { return }
+                        validSys = sys
+                        validDia = dia
                     }
+                    let entry = BiometricEntry(
+                        bpSystolic: validSys,
+                        bpDiastolic: validDia,
+                        notes: String(notes.trimmingCharacters(in: .whitespacesAndNewlines).prefix(500))
+                    )
+                    dataStore.addBiometricEntry(entry)
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    notes = ""
+                    bpSystolic = ""
+                    bpDiastolic = ""
                 }
             }
 
@@ -228,9 +142,7 @@ private struct BiometricsTab: View {
             }
         }
         .task {
-            if healthKitService.isAuthorized {
-                await healthKitService.fetchAll()
-            }
+            await healthKitService.fetchAll()
         }
     }
 
