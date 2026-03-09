@@ -21,9 +21,12 @@
 		622BD4791B79939E792C30C4 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */; };
 		66065EC17E1EB67D055A05BC /* DoseWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8947D3D1DFEE18C58CFD07C9 /* DoseWidgetBundle.swift */; };
 		720A4D2E986E622CE2506454 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02E03D79AF6883278D1B0F /* LogView.swift */; };
+		74EE59BEA3BD96994A9AC29B /* DataStoreExportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326A301D9255956D46D9AF1E /* DataStoreExportTests.swift */; };
+		750A39D589CD40CEAC85073B /* HealthScoringServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565E6E24EC9B8FBE66187DEB /* HealthScoringServiceTests.swift */; };
 		773BE2B4E10A65AEBC91F9CC /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B64ABA79F5ADF607882964 /* HealthKitService.swift */; };
 		7BA324B459DD23FD61CA9D39 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBCA784AC9059994ADCCCFA /* HistoryView.swift */; };
 		7C8D1EEAFDBFE2AA650879E5 /* SubstanceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF86D74CC42D015A347E81D7 /* SubstanceDetailView.swift */; };
+		7FB50206E7BD3218032A4465 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7F508421DBEC8721F979B2 /* SplashView.swift */; };
 		814482249B7F1367D1160E8E /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84161329875177CC262A4B27 /* BodyView.swift */; };
 		84D7414FF1D80D563916C80C /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D3C8536C750D3BF6A0E256 /* InsightsView.swift */; };
 		8BCBCE683DD90A3BECC1F6EB /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EA86FD5A989F175BD17549 /* HealthKit.framework */; };
@@ -34,13 +37,17 @@
 		B948721133B0C0F574ACC083 /* AddDoseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */; };
 		B9BE394A9D62CDDB30D267F2 /* InteractionCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */; };
 		C5009B8F919AA2F14CE37C17 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111AE08D0805646608970AD /* RemindersView.swift */; };
+		CC85111464096B33237E769C /* HealthGradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C4916AB69C902DB432165 /* HealthGradeView.swift */; };
 		D2BB2666C3EAD5647E1104F4 /* InteractionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A16608622E657C93A4B65 /* InteractionEngine.swift */; };
 		D73969E3BAAB7CFFE48D9987 /* DataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA05EAE2EFB09CA0260889 /* DataStoreTests.swift */; };
 		DD3D0D5A1BC654C563096584 /* HealthKitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040453F2FBE219F6BE6E9EF2 /* HealthKitServiceTests.swift */; };
 		E3F8E3E2AFDC56E21949D5C0 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */; };
+		E6BBD77D8080D9D9A6DBD237 /* ScoreRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1FC20BBF291633C79A384C /* ScoreRingView.swift */; };
 		E74A9F41445E1F056CB216B9 /* SubstanceDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61C9DB011C450F0694A6A68 /* SubstanceDatabaseTests.swift */; };
 		E922D9A1A6474CD6A803EF15 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E31E74E4854CCAC953A0F /* SwiftUI.framework */; };
 		F05A7517BC23D8160DE61A75 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E2885E814F9467694D549C /* NotificationService.swift */; };
+		F500DF9C98BA54C81952A707 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22EBE90B2870358FDB8E8A2 /* NotificationServiceTests.swift */; };
+		F5E03A7EE22DBA4444B44A08 /* HealthScoringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCCDD59C8FF54663C1DD07B /* HealthScoringService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,15 +85,18 @@
 		0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionCheckerView.swift; sourceTree = "<group>"; };
 		040453F2FBE219F6BE6E9EF2 /* HealthKitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceTests.swift; sourceTree = "<group>"; };
 		0579E166DEB2959E738B0078 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0F8C4916AB69C902DB432165 /* HealthGradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthGradeView.swift; sourceTree = "<group>"; };
 		13653369BEDC7C9D57B2AD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		14D3C8536C750D3BF6A0E256 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		20D27BAAB993C8892C1BBF07 /* DoseWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoseWidget.entitlements; sourceTree = "<group>"; };
 		2C74417D906A5D19813FAA57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		326A301D9255956D46D9AF1E /* DataStoreExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreExportTests.swift; sourceTree = "<group>"; };
 		37CB956EB4B85093D6AFDCD6 /* DoseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DoseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E2885E814F9467694D549C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		442065323162796C3DD78694 /* CSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
 		51CC9F83D84BABEBC9F2D908 /* DoseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseWidget.swift; sourceTree = "<group>"; };
 		55072BDDA3266E12BC8EB118 /* HealthEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthEntry.swift; sourceTree = "<group>"; };
+		565E6E24EC9B8FBE66187DEB /* HealthScoringServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoringServiceTests.swift; sourceTree = "<group>"; };
 		57DA05EAE2EFB09CA0260889 /* DataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreTests.swift; sourceTree = "<group>"; };
 		60B64ABA79F5ADF607882964 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		62EA86FD5A989F175BD17549 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -100,13 +110,17 @@
 		A3D27A1922EC987BAE7FD493 /* DoseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseEntry.swift; sourceTree = "<group>"; };
 		A6A2479EAB37F36326C1E5C7 /* DoseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseApp.swift; sourceTree = "<group>"; };
 		ABBD4D3BA875752B7C35E8EB /* CSVExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporterTests.swift; sourceTree = "<group>"; };
+		AC1FC20BBF291633C79A384C /* ScoreRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRingView.swift; sourceTree = "<group>"; };
 		B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		B111AE08D0805646608970AD /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		BC7F508421DBEC8721F979B2 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		BDCCDD59C8FF54663C1DD07B /* HealthScoringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoringService.swift; sourceTree = "<group>"; };
 		C0AC81F3FA6A15841EF6B0BC /* icon.svg */ = {isa = PBXFileReference; path = icon.svg; sourceTree = "<group>"; };
 		C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C3EBB199DE6DF1554DCC6A41 /* Dose.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Dose.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C61C9DB011C450F0694A6A68 /* SubstanceDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceDatabaseTests.swift; sourceTree = "<group>"; };
 		D07A16608622E657C93A4B65 /* InteractionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionEngine.swift; sourceTree = "<group>"; };
+		D22EBE90B2870358FDB8E8A2 /* NotificationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceTests.swift; sourceTree = "<group>"; };
 		D389B60E83500D2B9DEF0674 /* SubstanceDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceDatabase.swift; sourceTree = "<group>"; };
 		D491D718133287F56E41FFDD /* DoseWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DoseWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF71FA0DF91CBDDDB4B0F5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +151,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05107F0501338174F2EF7C18 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AC1FC20BBF291633C79A384C /* ScoreRingView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2F33E89E3A7CF0A0294DD508 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +186,7 @@
 				442065323162796C3DD78694 /* CSVExporter.swift */,
 				C26DA1F8744DE5E7D0DFD9DF /* DataStore.swift */,
 				60B64ABA79F5ADF607882964 /* HealthKitService.swift */,
+				BDCCDD59C8FF54663C1DD07B /* HealthScoringService.swift */,
 				D07A16608622E657C93A4B65 /* InteractionEngine.swift */,
 				42E2885E814F9467694D549C /* NotificationService.swift */,
 			);
@@ -174,9 +197,12 @@
 			isa = PBXGroup;
 			children = (
 				ABBD4D3BA875752B7C35E8EB /* CSVExporterTests.swift */,
+				326A301D9255956D46D9AF1E /* DataStoreExportTests.swift */,
 				57DA05EAE2EFB09CA0260889 /* DataStoreTests.swift */,
 				040453F2FBE219F6BE6E9EF2 /* HealthKitServiceTests.swift */,
+				565E6E24EC9B8FBE66187DEB /* HealthScoringServiceTests.swift */,
 				8AEA39D13F7C656D70702EE8 /* InteractionEngineTests.swift */,
+				D22EBE90B2870358FDB8E8A2 /* NotificationServiceTests.swift */,
 				C61C9DB011C450F0694A6A68 /* SubstanceDatabaseTests.swift */,
 			);
 			path = Tests;
@@ -199,13 +225,16 @@
 				91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */,
 				84161329875177CC262A4B27 /* BodyView.swift */,
 				EFC5262460DE69FCBAD325BC /* DashboardView.swift */,
+				0F8C4916AB69C902DB432165 /* HealthGradeView.swift */,
 				6CBCA784AC9059994ADCCCFA /* HistoryView.swift */,
 				14D3C8536C750D3BF6A0E256 /* InsightsView.swift */,
 				0290CD5D1CEB1ECE82F5CC1D /* InteractionCheckerView.swift */,
 				B03CCA7FA47EC5B9F0791D99 /* LibraryView.swift */,
 				9E02E03D79AF6883278D1B0F /* LogView.swift */,
 				B111AE08D0805646608970AD /* RemindersView.swift */,
+				BC7F508421DBEC8721F979B2 /* SplashView.swift */,
 				EF86D74CC42D015A347E81D7 /* SubstanceDetailView.swift */,
+				05107F0501338174F2EF7C18 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -328,6 +357,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					61CA8FFB03B685ED9803AFB5 = {
+						DevelopmentTeam = QMM486NPYC;
+						ProvisioningStyle = Automatic;
+					};
+					A91F1CC649E92BD8B1CD77EA = {
+						DevelopmentTeam = QMM486NPYC;
+						ProvisioningStyle = Automatic;
+					};
+					C67EF3CBC1F9EE301643B9D6 = {
+						DevelopmentTeam = QMM486NPYC;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 171111CA47A4C48088F6F69A /* Build configuration list for PBXProject "Dose" */;
@@ -369,9 +410,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E636530C8351D5A922B5312 /* CSVExporterTests.swift in Sources */,
+				74EE59BEA3BD96994A9AC29B /* DataStoreExportTests.swift in Sources */,
 				D73969E3BAAB7CFFE48D9987 /* DataStoreTests.swift in Sources */,
 				DD3D0D5A1BC654C563096584 /* HealthKitServiceTests.swift in Sources */,
+				750A39D589CD40CEAC85073B /* HealthScoringServiceTests.swift in Sources */,
 				5CB0496D5F8B59C397AFDBC6 /* InteractionEngineTests.swift in Sources */,
+				F500DF9C98BA54C81952A707 /* NotificationServiceTests.swift in Sources */,
 				E74A9F41445E1F056CB216B9 /* SubstanceDatabaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,7 +433,9 @@
 				0B7B033FDE64500B79B5A8B4 /* DoseApp.swift in Sources */,
 				2ACACB1BF0F84AB4E9F72DE4 /* DoseEntry.swift in Sources */,
 				A60A85B52A37C611CDC2FB87 /* HealthEntry.swift in Sources */,
+				CC85111464096B33237E769C /* HealthGradeView.swift in Sources */,
 				773BE2B4E10A65AEBC91F9CC /* HealthKitService.swift in Sources */,
+				F5E03A7EE22DBA4444B44A08 /* HealthScoringService.swift in Sources */,
 				7BA324B459DD23FD61CA9D39 /* HistoryView.swift in Sources */,
 				84D7414FF1D80D563916C80C /* InsightsView.swift in Sources */,
 				B9BE394A9D62CDDB30D267F2 /* InteractionCheckerView.swift in Sources */,
@@ -398,6 +444,8 @@
 				720A4D2E986E622CE2506454 /* LogView.swift in Sources */,
 				F05A7517BC23D8160DE61A75 /* NotificationService.swift in Sources */,
 				C5009B8F919AA2F14CE37C17 /* RemindersView.swift in Sources */,
+				E6BBD77D8080D9D9A6DBD237 /* ScoreRingView.swift in Sources */,
+				7FB50206E7BD3218032A4465 /* SplashView.swift in Sources */,
 				48D28BDA648E3B65746EA9CE /* Substance.swift in Sources */,
 				19F672F7C0B340BF2064AD28 /* SubstanceDatabase.swift in Sources */,
 				7C8D1EEAFDBFE2AA650879E5 /* SubstanceDetailView.swift in Sources */,
@@ -478,9 +526,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QMM486NPYC;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -492,7 +542,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.3.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -507,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -556,6 +607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -618,9 +670,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QMM486NPYC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -638,7 +692,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.3.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
