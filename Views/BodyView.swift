@@ -11,17 +11,28 @@ struct BodyView: View {
                 Picker("Section", selection: $selectedTab) {
                     Text("Biometrics").tag(0)
                     Text("Health").tag(1)
+                    Text("Grade").tag(2)
                 }
                 .pickerStyle(.segmented)
                 .padding()
 
                 if selectedTab == 0 {
                     BiometricsTab(dataStore: dataStore, healthKitService: healthKitService)
-                } else {
+                } else if selectedTab == 1 {
                     HealthTab(dataStore: dataStore)
+                } else {
+                    HealthGradeView(dataStore: dataStore, healthKitService: healthKitService)
                 }
             }
             .navigationTitle("Body")
+            .alert("Save Error", isPresented: .init(
+                get: { dataStore.lastError != nil },
+                set: { if !$0 { dataStore.lastError = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(dataStore.lastError ?? "")
+            }
         }
     }
 }
@@ -43,82 +54,135 @@ private struct BiometricsTab: View {
 
     var body: some View {
         Form {
-            if HealthKitService.isAvailable {
+            if healthKitService.isAuthorized {
                 Section("Apple Health") {
-                    if healthKitService.isAuthorized {
-                        healthDataGrid
-                    } else {
+                    healthDataGrid
+                }
+
+                Section("Notes") {
+                    TextField("Daily notes...", text: $notes, axis: .vertical)
+                        .lineLimit(4, reservesSpace: true)
+
+                    if healthKitService.systolicBP == nil {
+                        HStack {
+                            Text("Blood Pressure")
+                            Spacer()
+                            TextField("sys", text: $bpSystolic)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                                .frame(width: 50)
+                            Text("/")
+                            TextField("dia", text: $bpDiastolic)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                                .frame(width: 50)
+                        }
+                    }
+
+                    Button("Save Note") {
+                        var validSys: Int?
+                        var validDia: Int?
+                        if !bpSystolic.isEmpty || !bpDiastolic.isEmpty {
+                            guard let sys = Int(bpSystolic), sys > 0, sys < 300,
+                                  let dia = Int(bpDiastolic), dia > 0, dia < 300 else { return }
+                            validSys = sys
+                            validDia = dia
+                        }
+                        let entry = BiometricEntry(
+                            bpSystolic: validSys,
+                            bpDiastolic: validDia,
+                            notes: String(notes.trimmingCharacters(in: .whitespacesAndNewlines).prefix(500))
+                        )
+                        dataStore.addBiometricEntry(entry)
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        notes = ""
+                        bpSystolic = ""
+                        bpDiastolic = ""
+                    }
+                }
+            } else {
+                if HealthKitService.isAvailable {
+                    Section("Apple Health") {
                         Button("Connect Apple Health") {
                             Task { await healthKitService.requestAuthorization() }
                         }
                     }
                 }
-            }
 
-            Section("Log Biometrics") {
-                HStack {
-                    Text("Weight (lbs)")
-                    Spacer()
-                    TextField("--", text: $weight)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 80)
+                Section("Log Biometrics") {
+                    HStack {
+                        Text("Weight (lbs)")
+                        Spacer()
+                        TextField("--", text: $weight)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: 80)
+                    }
+
+                    HStack {
+                        Text("Blood Pressure")
+                        Spacer()
+                        TextField("sys", text: $bpSystolic)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: 50)
+                        Text("/")
+                        TextField("dia", text: $bpDiastolic)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: 50)
+                    }
+
+                    HStack {
+                        Text("Heart Rate (bpm)")
+                        Spacer()
+                        TextField("--", text: $heartRate)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: 80)
+                    }
+
+                    VStack(alignment: .leading) {
+                        Text("Sleep: \(sleepHours, specifier: "%.1f") hrs")
+                        Slider(value: $sleepHours, in: 0...12, step: 0.5)
+                    }
+
+                    HStack {
+                        Text("Steps")
+                        Spacer()
+                        TextField("--", text: $steps)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: 80)
+                    }
+
+                    TextField("Notes", text: $notes, axis: .vertical)
+                        .lineLimit(3, reservesSpace: true)
                 }
 
-                HStack {
-                    Text("Blood Pressure")
-                    Spacer()
-                    TextField("sys", text: $bpSystolic)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 50)
-                    Text("/")
-                    TextField("dia", text: $bpDiastolic)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 50)
-                }
-
-                HStack {
-                    Text("Heart Rate (bpm)")
-                    Spacer()
-                    TextField("--", text: $heartRate)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 80)
-                }
-
-                VStack(alignment: .leading) {
-                    Text("Sleep: \(sleepHours, specifier: "%.1f") hrs")
-                    Slider(value: $sleepHours, in: 0...12, step: 0.5)
-                }
-
-                HStack {
-                    Text("Steps")
-                    Spacer()
-                    TextField("--", text: $steps)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 80)
-                }
-
-                TextField("Notes", text: $notes, axis: .vertical)
-                    .lineLimit(3, reservesSpace: true)
-            }
-
-            Section {
-                Button("Save Biometrics") {
-                    let entry = BiometricEntry(
-                        weight: Double(weight),
-                        bpSystolic: Int(bpSystolic),
-                        bpDiastolic: Int(bpDiastolic),
-                        heartRate: Int(heartRate),
-                        sleepHours: sleepHours,
-                        steps: Int(steps),
-                        notes: notes.trimmingCharacters(in: .whitespacesAndNewlines)
-                    )
-                    dataStore.addBiometricEntry(entry)
-                    clearForm()
+                Section {
+                    Button("Save Biometrics") {
+                        var validSys: Int?
+                        var validDia: Int?
+                        if !bpSystolic.isEmpty || !bpDiastolic.isEmpty {
+                            guard let sys = Int(bpSystolic), sys > 0, sys < 300,
+                                  let dia = Int(bpDiastolic), dia > 0, dia < 300 else { return }
+                            validSys = sys
+                            validDia = dia
+                        }
+                        let entry = BiometricEntry(
+                            weight: Double(weight),
+                            bpSystolic: validSys,
+                            bpDiastolic: validDia,
+                            heartRate: Int(heartRate),
+                            sleepHours: sleepHours,
+                            steps: Int(steps),
+                            notes: String(notes.trimmingCharacters(in: .whitespacesAndNewlines).prefix(500))
+                        )
+                        dataStore.addBiometricEntry(entry)
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        clearForm()
+                    }
                 }
             }
 
@@ -146,14 +210,26 @@ private struct BiometricsTab: View {
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
-                            if let sl = entry.sleepHours {
-                                Text("Sleep: \(sl, specifier: "%.1f") hrs")
+                            if !entry.notes.isEmpty {
+                                Text(entry.notes)
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
                         }
                     }
+                    .onDelete { offsets in
+                        let toDelete = offsets.map { recentEntries[$0] }
+                        for entry in toDelete {
+                            dataStore.deleteBiometricEntry(entry)
+                        }
+                        UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                    }
                 }
+            }
+        }
+        .task {
+            if healthKitService.isAuthorized {
+                await healthKitService.fetchAll()
             }
         }
     }
@@ -171,6 +247,11 @@ private struct BiometricsTab: View {
             healthCard("Energy", value: healthKitService.activeEnergy.map { "\(Int($0)) kcal" }, icon: "flame.fill", color: .orange)
             healthCard("Distance", value: healthKitService.walkingDistance.map { String(format: "%.1f mi", $0) }, icon: "map.fill", color: .cyan)
             healthCard("Weight", value: healthKitService.bodyMass.map { String(format: "%.1f lbs", $0) }, icon: "scalemass.fill", color: .brown)
+            healthCard("Water", value: healthKitService.dietaryWater.map { "\(Int($0)) mL" }, icon: "drop.fill", color: .blue)
+            healthCard("Caffeine", value: healthKitService.dietaryCaffeine.map { "\(Int($0)) mg" }, icon: "cup.and.saucer.fill", color: .brown)
+            healthCard("Body Temp", value: healthKitService.bodyTemperature.map { String(format: "%.1f F", $0) }, icon: "thermometer.medium", color: .orange)
+            healthCard("Audio", value: healthKitService.environmentalAudioExposure.map { "\(Int($0)) dB" }, icon: "ear.fill", color: .purple)
+            healthCard("Brushing", value: healthKitService.toothbrushingToday.map { $0 ? "Done" : "Not yet" }, icon: "mouth.fill", color: .mint)
         }
         if let sys = healthKitService.systolicBP, let dia = healthKitService.diastolicBP {
             HStack {
@@ -228,12 +309,24 @@ private struct HealthTab: View {
         Form {
             Section("Daily Check-In") {
                 VStack(alignment: .leading) {
-                    Text("Mood: \(Int(mood))")
+                    HStack {
+                        Text("Mood: \(Int(mood))")
+                        Spacer()
+                        Text(sliderLabel(Int(mood)))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                     Slider(value: $mood, in: 1...5, step: 1)
                 }
 
                 VStack(alignment: .leading) {
-                    Text("Energy: \(Int(energy))")
+                    HStack {
+                        Text("Energy: \(Int(energy))")
+                        Spacer()
+                        Text(sliderLabel(Int(energy)))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                     Slider(value: $energy, in: 1...5, step: 1)
                 }
 
@@ -256,6 +349,10 @@ private struct HealthTab: View {
                             notes: notes.trimmingCharacters(in: .whitespacesAndNewlines)
                         )
                     )
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    mood = 3.0
+                    energy = 3.0
+                    sleepHours = 8.0
                     notes = ""
                 }
             }
@@ -275,8 +372,26 @@ private struct HealthTab: View {
                             .foregroundStyle(.secondary)
                         }
                     }
+                    .onDelete { offsets in
+                        let toDelete = offsets.map { recentEntries[$0] }
+                        for entry in toDelete {
+                            dataStore.deleteHealthEntry(entry)
+                        }
+                        UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                    }
                 }
             }
+        }
+    }
+
+    private func sliderLabel(_ value: Int) -> String {
+        switch value {
+        case 1: return "Low"
+        case 2: return "Okay"
+        case 3: return "Good"
+        case 4: return "Great"
+        case 5: return "Excellent"
+        default: return ""
         }
     }
 }

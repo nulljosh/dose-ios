@@ -1,6 +1,7 @@
 import XCTest
 @testable import Dose
 
+@MainActor
 final class CSVExporterTests: XCTestCase {
     func testHeaderFormat() throws {
         let store = DataStore()

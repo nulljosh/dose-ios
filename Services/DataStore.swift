@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-@Observable
+@MainActor @Observable
 final class DataStore {
     static let appGroupId = "group.com.heyitsmejosh.dose"
 

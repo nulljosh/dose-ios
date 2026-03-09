@@ -61,6 +61,7 @@ struct BuiltInSubstance: Codable, Identifiable, Hashable {
     var id: String
     var name: String
     var category: Category
+    var icon: String
     var halfLife: String
     var effects: [String]
     var interactions: [String]

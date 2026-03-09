@@ -5,29 +5,53 @@ struct DoseApp: App {
     @State private var dataStore = DataStore()
     @State private var healthKitService = HealthKitService()
     @State private var notificationService = NotificationService()
+    @State private var showSplash = true
+    @AppStorage("healthKitRequested") private var healthKitRequested = false
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                DashboardView(dataStore: dataStore, notificationService: notificationService)
-                    .tabItem {
-                        Label("Home", systemImage: "house.fill")
-                    }
+            ZStack {
+                TabView {
+                    DashboardView(dataStore: dataStore, notificationService: notificationService)
+                        .tabItem {
+                            Label("Home", systemImage: "house.fill")
+                        }
 
-                LibraryView(dataStore: dataStore)
-                    .tabItem {
-                        Label("Library", systemImage: "book.fill")
-                    }
+                    LibraryView(dataStore: dataStore)
+                        .tabItem {
+                            Label("Library", systemImage: "book.fill")
+                        }
 
-                InsightsView(dataStore: dataStore)
-                    .tabItem {
-                        Label("Insights", systemImage: "chart.line.uptrend.xyaxis")
-                    }
+                    InsightsView(dataStore: dataStore)
+                        .tabItem {
+                            Label("Insights", systemImage: "chart.line.uptrend.xyaxis")
+                        }
 
-                BodyView(dataStore: dataStore, healthKitService: healthKitService)
-                    .tabItem {
-                        Label("Body", systemImage: "heart.fill")
+                    BodyView(dataStore: dataStore, healthKitService: healthKitService)
+                        .tabItem {
+                            Label("Body", systemImage: "heart.fill")
+                        }
+                }
+                .task {
+                    if !healthKitRequested && HealthKitService.isAvailable {
+                        await healthKitService.requestAuthorization()
+                        healthKitRequested = true
                     }
+                }
+
+                if showSplash {
+                    SplashView()
+                        .zIndex(1)
+                        .transition(.opacity)
+                }
+            }
+            .onAppear {
+                Task {
+                    try? await Task.sleep(for: .seconds(1.5))
+                    withAnimation(.easeOut(duration: 0.5)) {
+                        showSplash = false
+                    }
+                }
             }
         }
     }

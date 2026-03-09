@@ -153,11 +153,19 @@ struct AddDoseSheet: View {
     }
 
     private func save() {
+        let parsedDose: Double?
+        if doseAmount.isEmpty {
+            parsedDose = nil
+        } else {
+            guard let value = Double(doseAmount), value > 0, value < 100_000 else { return }
+            parsedDose = value
+        }
+        let trimmedNotes = String(notes.prefix(500))
         let entry = DoseEntry(
             builtInSubstanceId: selectedSubstance?.id,
             timestamp: timestamp,
-            notes: notes,
-            dose: Double(doseAmount),
+            notes: trimmedNotes,
+            dose: parsedDose,
             unit: selectedSubstance?.unit,
             route: selectedRoute.isEmpty ? nil : selectedRoute,
             rating: rating > 0 ? rating : nil

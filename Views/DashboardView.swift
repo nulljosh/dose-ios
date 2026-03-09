@@ -55,9 +55,8 @@ struct DashboardView: View {
                         }
 
                         if activePills.isEmpty {
-                            Text("No active substances in the last 24 hours.")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                            ContentUnavailableView("No Active Substances", systemImage: "pill", description: Text("Nothing taken in the last 24 hours"))
+                                .frame(maxHeight: 120)
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
@@ -81,9 +80,8 @@ struct DashboardView: View {
                             .font(.headline)
 
                         if recentEntries.isEmpty {
-                            Text("No doses logged yet.")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                            ContentUnavailableView("No Doses Yet", systemImage: "pills.fill", description: Text("Tap Quick log to log your first dose"))
+                                .frame(maxHeight: 120)
                         } else {
                             ForEach(recentEntries) { entry in
                                 VStack(alignment: .leading, spacing: 4) {

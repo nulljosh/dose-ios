@@ -60,6 +60,7 @@ struct HistoryView: View {
                 }
             }
             .navigationTitle("History")
+            .onDisappear { CSVExporter.cleanup() }
             .searchable(text: $searchText, prompt: "Search doses...")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

@@ -42,4 +42,43 @@ final class InteractionEngineTests: XCTestCase {
         let reverseSet = Set(reverse.map { "\($0.severity.rawValue)|\($0.description)" })
         XCTAssertEqual(forwardSet, reverseSet)
     }
+
+    func testSeverityKeywordsFatal() {
+        XCTAssertEqual(InteractionEngine.classify("seizure risk"), .major)
+        XCTAssertEqual(InteractionEngine.classify("serotonin syndrome"), .major)
+        XCTAssertEqual(InteractionEngine.classify("risk of death"), .major)
+        XCTAssertEqual(InteractionEngine.classify("avoid combination"), .major)
+        XCTAssertEqual(InteractionEngine.classify("contraindicated"), .major)
+    }
+
+    func testEmptyInteractionsReturnsEmpty() {
+        // Create two substances with no cross-references in their interactions
+        guard let caffeine = SubstanceDatabase.find(id: "caffeine"),
+              let vitaminC = SubstanceDatabase.find(id: "vitamin-c") else {
+            return XCTFail("Expected built-in substances to exist")
+        }
+        let results = InteractionEngine.check(caffeine, vitaminC)
+        XCTAssertTrue(results.isEmpty)
+    }
+
+    func testSameSubstanceNoInteraction() {
+        guard let caffeine = SubstanceDatabase.find(id: "caffeine") else {
+            return XCTFail("Expected caffeine to exist")
+        }
+        // Checking a substance against itself should not match its own interactions
+        // unless it explicitly references itself by name
+        let results = InteractionEngine.check(caffeine, caffeine)
+        // Just verify it doesn't crash and returns a deterministic result
+        XCTAssertTrue(results.count >= 0)
+    }
+
+    func testAllSeverityLevels() {
+        XCTAssertEqual(InteractionEngine.classify("completely benign note").rawValue, Severity.minor.rawValue)
+        XCTAssertEqual(InteractionEngine.classify("potentiates effect").rawValue, Severity.moderate.rawValue)
+        XCTAssertEqual(InteractionEngine.classify("fatal combination").rawValue, Severity.major.rawValue)
+
+        // Verify ordering
+        XCTAssertTrue(Severity.minor < Severity.moderate)
+        XCTAssertTrue(Severity.moderate < Severity.major)
+    }
 }

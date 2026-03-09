@@ -5,8 +5,10 @@ options:
     iOS: '17.0'
 settings:
   SWIFT_VERSION: '6.0'
-  MARKETING_VERSION: '2.1.0'
+  MARKETING_VERSION: '2.3.1'
   CURRENT_PROJECT_VERSION: '1'
+  DEVELOPMENT_TEAM: QMM486NPYC
+  CODE_SIGN_STYLE: Automatic
 targets:
   Dose:
     type: application
@@ -48,6 +50,7 @@ targets:
       - target: Dose
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.dose.tests
+      GENERATE_INFOPLIST_FILE: YES
 
   DoseWidgetExtension:
     type: app-extension
@@ -65,3 +68,15 @@ targets:
     dependencies:
       - sdk: WidgetKit.framework
       - sdk: SwiftUI.framework
+
+schemes:
+  Dose:
+    build:
+      targets:
+        Dose: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - DoseTests

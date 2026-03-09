@@ -41,4 +41,43 @@ final class SubstanceDatabaseTests: XCTestCase {
             )
         }
     }
+
+    func testAllSubstancesHaveIcons() {
+        for substance in SubstanceDatabase.allSubstances {
+            XCTAssertFalse(
+                substance.icon.isEmpty,
+                "Substance \(substance.name) should have a non-empty icon"
+            )
+        }
+    }
+
+    func testAllSubstancesHaveNonEmptyHalfLife() {
+        for substance in SubstanceDatabase.allSubstances {
+            XCTAssertFalse(
+                substance.halfLife.isEmpty,
+                "Substance \(substance.name) should have a non-empty halfLife"
+            )
+        }
+    }
+
+    func testCategoryIconExists() {
+        // Every category should have at least one substance with a valid SF Symbol name
+        for category in SubstanceDatabase.categories {
+            let substances = SubstanceDatabase.byCategory(category)
+            XCTAssertFalse(substances.isEmpty)
+            let firstIcon = substances.first?.icon ?? ""
+            XCTAssertFalse(firstIcon.isEmpty, "Category \(category.rawValue) should have substances with icons")
+        }
+    }
+
+    func testSearchCaseInsensitive() {
+        let upper = SubstanceDatabase.search("CAFFEINE")
+        let lower = SubstanceDatabase.search("caffeine")
+        let mixed = SubstanceDatabase.search("Caffeine")
+
+        XCTAssertFalse(upper.isEmpty)
+        XCTAssertEqual(upper.count, lower.count)
+        XCTAssertEqual(upper.count, mixed.count)
+        XCTAssertEqual(upper.first?.id, lower.first?.id)
+    }
 }

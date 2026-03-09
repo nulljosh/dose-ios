@@ -57,10 +57,16 @@ struct LibraryView: View {
                                 SubstanceDetailView(substance: substance)
                             } label: {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Rectangle()
-                                        .fill(substance.category.categoryColor)
-                                        .frame(height: 6)
-                                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                                    HStack {
+                                        Rectangle()
+                                            .fill(substance.category.categoryColor)
+                                            .frame(height: 6)
+                                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                                        Spacer()
+                                        Image(systemName: substance.icon)
+                                            .font(.title3)
+                                            .foregroundStyle(substance.category.categoryColor)
+                                    }
 
                                     Text(substance.name)
                                         .font(.headline)

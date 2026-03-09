@@ -1,6 +1,7 @@
 import XCTest
 @testable import Dose
 
+@MainActor
 final class DataStoreTests: XCTestCase {
     private let defaults = UserDefaults.standard
     private let substancesKey = "dose.substances"
@@ -131,10 +132,11 @@ final class DataStoreTests: XCTestCase {
         XCTAssertEqual(seededStore.substances.first?.name, "Custom")
     }
 
-    private func clearPersistence() {
-        defaults.removeObject(forKey: substancesKey)
-        defaults.removeObject(forKey: doseEntriesKey)
-        defaults.removeObject(forKey: healthEntriesKey)
-        defaults.removeObject(forKey: biometricEntriesKey)
+    nonisolated private func clearPersistence() {
+        let d = UserDefaults.standard
+        d.removeObject(forKey: "dose.substances")
+        d.removeObject(forKey: "dose.doseEntries")
+        d.removeObject(forKey: "dose.healthEntries")
+        d.removeObject(forKey: "dose.biometricEntries")
     }
 }

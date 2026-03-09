@@ -26,6 +26,7 @@ struct InsightsView: View {
             calendar.component(.weekday, from: entry.timestamp)
         }.mapValues(\.count)
         let top = dayCounts.max(by: { $0.value < $1.value })?.key ?? 1
+        guard top >= 1, top <= 7 else { return "--" }
         let formatter = DateFormatter()
         return formatter.weekdaySymbols[top - 1]
     }

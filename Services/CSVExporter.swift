@@ -11,7 +11,7 @@ enum CSVExportError: LocalizedError {
 }
 
 struct CSVExporter {
-    static func export(entries: [DoseEntry], dataStore: DataStore) -> Result<URL, Error> {
+    @MainActor static func export(entries: [DoseEntry], dataStore: DataStore) -> Result<URL, Error> {
         let header = "date,time,substance,dose,unit,route,rating,notes"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -41,6 +41,11 @@ struct CSVExporter {
         } catch {
             return .failure(CSVExportError.writeFailure(error.localizedDescription))
         }
+    }
+
+    static func cleanup() {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("dose-export.csv")
+        try? FileManager.default.removeItem(at: url)
     }
 
     private static func csvEscape(_ value: String) -> String {

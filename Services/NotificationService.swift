@@ -32,7 +32,9 @@ final class NotificationService {
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: repeats)
 
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
-        center.add(request, withCompletionHandler: nil)
+        center.add(request) { error in
+            if let error { print("Notification scheduling failed: \(error.localizedDescription)") }
+        }
     }
 
     func cancelReminder(id: String) {

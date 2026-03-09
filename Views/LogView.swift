@@ -40,6 +40,14 @@ struct LogView: View {
                 }
             }
             .navigationTitle("Log")
+            .alert("Save Error", isPresented: .init(
+                get: { dataStore.lastError != nil },
+                set: { if !$0 { dataStore.lastError = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(dataStore.lastError ?? "")
+            }
         }
     }
 }

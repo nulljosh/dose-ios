@@ -17,6 +17,11 @@ final class HealthKitService {
     var walkingDistance: Double?
     var systolicBP: Int?
     var diastolicBP: Int?
+    var dietaryWater: Double?
+    var dietaryCaffeine: Double?
+    var bodyTemperature: Double?
+    var environmentalAudioExposure: Double?
+    var toothbrushingToday: Bool?
     var isAuthorized = false
     var lastError: String?
 
@@ -29,11 +34,16 @@ final class HealthKitService {
             .heartRate, .restingHeartRate, .heartRateVariabilitySDNN,
             .respiratoryRate, .oxygenSaturation,
             .stepCount, .activeEnergyBurned, .bodyMass, .distanceWalkingRunning,
-            .bloodPressureSystolic, .bloodPressureDiastolic
+            .bloodPressureSystolic, .bloodPressureDiastolic,
+            .dietaryWater, .dietaryCaffeine, .bodyTemperature,
+            .environmentalAudioExposure
         ]
         var types = Set<HKObjectType>(quantityTypes.compactMap { HKQuantityType.quantityType(forIdentifier: $0) })
         if let sleep = HKObjectType.categoryType(forIdentifier: .sleepAnalysis) {
             types.insert(sleep)
+        }
+        if let toothbrushing = HKObjectType.categoryType(forIdentifier: .toothbrushingEvent) {
+            types.insert(toothbrushing)
         }
         return types
     }
@@ -63,6 +73,11 @@ final class HealthKitService {
         async let energy = fetchCumulativeSum(.activeEnergyBurned, unit: .kilocalorie())
         async let distance = fetchCumulativeSum(.distanceWalkingRunning, unit: .mile())
         async let sleep = fetchSleepHours()
+        async let water = fetchCumulativeSum(.dietaryWater, unit: .literUnit(with: .milli))
+        async let caffeine = fetchCumulativeSum(.dietaryCaffeine, unit: .gramUnit(with: .milli))
+        async let temp = fetchLatestQuantity(.bodyTemperature, unit: .degreeFahrenheit())
+        async let audio = fetchLatestQuantity(.environmentalAudioExposure, unit: .decibelAWeightedSoundPressureLevel())
+        async let brushed = fetchCategoryExistsToday(.toothbrushingEvent)
 
         heartRate = await hr
         restingHeartRate = await rhr
@@ -76,6 +91,11 @@ final class HealthKitService {
         activeEnergy = await energy
         walkingDistance = await distance
         sleepHours = await sleep
+        dietaryWater = await water
+        dietaryCaffeine = await caffeine
+        bodyTemperature = await temp
+        environmentalAudioExposure = await audio
+        toothbrushingToday = await brushed
     }
 
     // MARK: - Private
@@ -85,7 +105,8 @@ final class HealthKitService {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
 
         return await withCheckedContinuation { continuation in
-            let query = HKSampleQuery(sampleType: type, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, samples, _ in
+            let query = HKSampleQuery(sampleType: type, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, samples, error in
+                if let error { print("HealthKit query error (\(identifier.rawValue)): \(error.localizedDescription)") }
                 let value = (samples?.first as? HKQuantitySample)?.quantity.doubleValue(for: unit)
                 continuation.resume(returning: value)
             }
@@ -100,9 +121,26 @@ final class HealthKitService {
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
 
         return await withCheckedContinuation { continuation in
-            let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, stats, _ in
+            let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, stats, error in
+                if let error { print("HealthKit stats error (\(identifier.rawValue)): \(error.localizedDescription)") }
                 let value = stats?.sumQuantity()?.doubleValue(for: unit)
                 continuation.resume(returning: value)
+            }
+            store.execute(query)
+        }
+    }
+
+    private func fetchCategoryExistsToday(_ identifier: HKCategoryTypeIdentifier) async -> Bool? {
+        guard let type = HKObjectType.categoryType(forIdentifier: identifier) else { return nil }
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: 1, sortDescriptors: nil) { _, samples, error in
+                if let error { print("HealthKit category error (\(identifier.rawValue)): \(error.localizedDescription)") }
+                let exists = (samples?.count ?? 0) > 0
+                continuation.resume(returning: exists)
             }
             store.execute(query)
         }
@@ -118,7 +156,8 @@ final class HealthKitService {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
 
         return await withCheckedContinuation { continuation in
-            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { _, samples, _ in
+            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { _, samples, error in
+                if let error { print("HealthKit sleep query error: \(error.localizedDescription)") }
                 guard let samples = samples as? [HKCategorySample] else {
                     continuation.resume(returning: nil)
                     return
