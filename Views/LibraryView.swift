@@ -79,10 +79,7 @@ struct LibraryView: View {
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 110, alignment: .topLeading)
                                 .padding(12)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                        .fill(.quaternary)
-                                }
+                                .glassCard()
                             }
                             .buttonStyle(.plain)
                         }

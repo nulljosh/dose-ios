@@ -45,9 +45,14 @@ struct DashboardView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "flame.fill")
                             Text("\(dataStore.streakCount) day streak")
+                                .glowText()
                         }
                         .font(.headline)
                         .foregroundStyle(.orange)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 12)
+                        .glassCard()
+                        .shadow(color: .orange.opacity(0.22), radius: 10, x: 0, y: 0)
                     }
 
                     VStack(alignment: .leading, spacing: 12) {
@@ -61,6 +66,7 @@ struct DashboardView: View {
                                 showAddDose = true
                             }
                             .buttonStyle(.borderedProminent)
+                            .tint(.blue.opacity(0.85))
                         }
 
                         if activePills.isEmpty {
@@ -83,6 +89,8 @@ struct DashboardView: View {
                             }
                         }
                     }
+                    .padding(16)
+                    .glassCard()
 
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Recent entries")
@@ -109,7 +117,8 @@ struct DashboardView: View {
                                         .foregroundStyle(.tertiary)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.vertical, 4)
+                                .padding(12)
+                                .glassCard()
                             }
                         }
                     }

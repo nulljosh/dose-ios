@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05C46FE2284E356AB56C51DE /* DoseWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D491D718133287F56E41FFDD /* DoseWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		098F81B8734014BB6979BFD2 /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8628D99E014551DA8FDC2301 /* GlassModifiers.swift */; };
 		0B7B033FDE64500B79B5A8B4 /* DoseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A2479EAB37F36326C1E5C7 /* DoseApp.swift */; };
 		128C0AF040FD364F09DE1CF6 /* icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = C0AC81F3FA6A15841EF6B0BC /* icon.svg */; };
 		19F672F7C0B340BF2064AD28 /* SubstanceDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389B60E83500D2B9DEF0674 /* SubstanceDatabase.swift */; };
@@ -103,6 +104,7 @@
 		6CBCA784AC9059994ADCCCFA /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		6E6688B81AFC3887F4BD6A4F /* BiometricEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricEntry.swift; sourceTree = "<group>"; };
 		84161329875177CC262A4B27 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		8628D99E014551DA8FDC2301 /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
 		8947D3D1DFEE18C58CFD07C9 /* DoseWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseWidgetBundle.swift; sourceTree = "<group>"; };
 		8AEA39D13F7C656D70702EE8 /* InteractionEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionEngineTests.swift; sourceTree = "<group>"; };
 		91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoseSheet.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				91EB2289DBBAF155EF10F6D1 /* AddDoseSheet.swift */,
 				84161329875177CC262A4B27 /* BodyView.swift */,
 				EFC5262460DE69FCBAD325BC /* DashboardView.swift */,
+				8628D99E014551DA8FDC2301 /* GlassModifiers.swift */,
 				0F8C4916AB69C902DB432165 /* HealthGradeView.swift */,
 				6CBCA784AC9059994ADCCCFA /* HistoryView.swift */,
 				14D3C8536C750D3BF6A0E256 /* InsightsView.swift */,
@@ -432,6 +435,7 @@
 				E3F8E3E2AFDC56E21949D5C0 /* DataStore.swift in Sources */,
 				0B7B033FDE64500B79B5A8B4 /* DoseApp.swift in Sources */,
 				2ACACB1BF0F84AB4E9F72DE4 /* DoseEntry.swift in Sources */,
+				098F81B8734014BB6979BFD2 /* GlassModifiers.swift in Sources */,
 				A60A85B52A37C611CDC2FB87 /* HealthEntry.swift in Sources */,
 				CC85111464096B33237E769C /* HealthGradeView.swift in Sources */,
 				773BE2B4E10A65AEBC91F9CC /* HealthKitService.swift in Sources */,

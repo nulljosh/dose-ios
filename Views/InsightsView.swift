@@ -130,7 +130,7 @@ struct InsightsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(.quaternary))
+        .glassCard()
     }
 
     private var top5Section: some View {
@@ -164,6 +164,8 @@ struct InsightsView: View {
                 }
             }
         }
+        .padding(16)
+        .glassCard()
     }
 
     private var heatmapSection: some View {
@@ -187,6 +189,8 @@ struct InsightsView: View {
                 }
             }
         }
+        .padding(16)
+        .glassCard()
     }
 
     private func heatmapColor(count: Int) -> Color {
