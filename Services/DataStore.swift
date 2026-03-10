@@ -32,6 +32,26 @@ final class DataStore {
     private let doseEntriesKey = "dose.doseEntries"
     private let healthEntriesKey = "dose.healthEntries"
     private let biometricEntriesKey = "dose.biometricEntries"
+    private let calendar = Calendar.current
+
+    var streakCount: Int {
+        let entryDays = Set(doseEntries.map { calendar.startOfDay(for: $0.timestamp) })
+        guard !entryDays.isEmpty else { return 0 }
+
+        var streak = 0
+        var currentDay = calendar.startOfDay(for: Date())
+
+        while entryDays.contains(currentDay) {
+            streak += 1
+
+            guard let previousDay = calendar.date(byAdding: .day, value: -1, to: currentDay) else {
+                break
+            }
+            currentDay = previousDay
+        }
+
+        return streak
+    }
 
     init() {
         loadAll()

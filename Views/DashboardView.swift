@@ -41,6 +41,15 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
+                    if dataStore.streakCount > 0 {
+                        HStack(spacing: 8) {
+                            Image(systemName: "flame.fill")
+                            Text("\(dataStore.streakCount) day streak")
+                        }
+                        .font(.headline)
+                        .foregroundStyle(.orange)
+                    }
+
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("Active stack")
